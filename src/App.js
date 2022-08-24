@@ -1,6 +1,6 @@
 import "./App.css";
 import {
-  HashRouter,
+  BrowserRouter,
   NavLink,
   Routes,
   Route,
@@ -18,6 +18,7 @@ const Todo = () => {
   );
 };
 const Logout = () => {
+  //2 useNavigate
   const navigate = useNavigate();
   return (
     <button
@@ -33,27 +34,28 @@ const Login = () => {
 const Register = () => {
   return <p>這是註冊頁面</p>;
 };
-
+// 3 React Router 動態路由
 const Post = () => {
   return (
     <div>
-      <NavLink to=":post111">
-        <h2>Post 詳細頁面1</h2>
-      </NavLink>
+      <h2>這是Post 頁面</h2>
+      <NavLink to="/post/post123">
+           <p>Post 詳細頁面</p>
+          </NavLink>
       <Outlet />
     </div>
   );
 };
 
 const PostId = () => {
-  let params = useParams();
+  let  params = useParams();
   return <p>PostId: {params.postId}</p>;
 };
 
 function App() {
   return (
     <div className="container">
-      <HashRouter>
+      <BrowserRouter>
         <div className="nav-link">
           <NavLink to="/">
             <p>回到首頁</p>
@@ -76,12 +78,12 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/todo" element={<Todo />} />
-          <Route path="/post" element={<Post />} />
+          <Route path="/post" element={<Post />}>
            <Route path=":postId" element={<PostId />} />
-          <Route/>
+          </Route>
         </Routes>
         {/* 練習區 */}
-      </HashRouter>
+      </BrowserRouter>
     </div>
   );
 }
